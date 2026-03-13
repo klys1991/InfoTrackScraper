@@ -22,7 +22,7 @@ In most teams F# is ruled out before the conversation starts - unfamiliarity, hi
 ## Quick Start
 
 ```bash
-git clone <repo>
+git clone klys1991/InfoTrackScraper
 cd InfoTrack
 docker-compose up --build
 # Open http://localhost:3000
