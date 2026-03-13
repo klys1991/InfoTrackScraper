@@ -1,0 +1,107 @@
+:host {
+  display: block;
+  width: 100%;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.results-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 24px;
+
+  h2 {
+    font-size: 22px;
+    font-weight: 700;
+    color: #1a1a2e;
+    margin: 0;
+  }
+}
+
+.health-banner {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 18px;
+  border-radius: var(--radius-sm);
+  margin-bottom: 10px;
+  font-size: 14px;
+  font-weight: 500;
+  border-left: 4px solid transparent;
+
+  &.banner-info  { background: #f0f4ff; color: #37474f; border-left-color: #78909c; }
+  &.banner-warn  { background: #fff8f0; color: #e65100; border-left-color: #ff6d00; }
+  &.banner-error { background: #fff0f3; color: #b71c1c; border-left-color: #e53935; }
+}
+
+.summary-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.summary-card {
+  transition: box-shadow 0.18s ease, transform 0.15s ease;
+
+  &:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-md) !important;
+  }
+
+  .stat {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 7px 0;
+    border-bottom: 1px solid #f2f4f7;
+    &:last-child { border-bottom: none; }
+  }
+  .label {
+    color: var(--text-muted);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+    font-weight: 600;
+  }
+  .value {
+    font-weight: 700;
+    font-size: 17px;
+    color: #1a1a2e;
+  }
+}
+
+.chart-card { margin-bottom: 24px; }
+
+.filters-row {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+
+  mat-form-field { min-width: 200px; }
+}
+
+.results-table { width: 100%; }
+
+.address-cell {
+  max-width: 280px;
+  font-size: 13px;
+  color: var(--text-muted);
+}
+
+a.website-link {
+  color: var(--accent);
+  font-weight: 500;
+  text-decoration: none;
+  font-size: 13px;
+  &:hover { text-decoration: underline; }
+}
+
+.empty-msg {
+  text-align: center;
+  color: #aaa;
+  padding: 32px;
+  font-size: 15px;
+}

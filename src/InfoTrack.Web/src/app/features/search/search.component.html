@@ -1,0 +1,71 @@
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>Run a Solicitor Scrape</mat-card-title>
+    <mat-card-subtitle>Select locations to search for conveyancing solicitors</mat-card-subtitle>
+  </mat-card-header>
+
+  <mat-card-content>
+    <p class="section-label">Locations</p>
+
+    <mat-chip-set class="chip-set-default">
+      @for (loc of defaultLocationsList; track loc) {
+        <mat-chip [class.selected-chip]="isSelected(loc)" (click)="toggleLocation(loc)">
+          {{ loc }}
+        </mat-chip>
+      }
+    </mat-chip-set>
+
+    @if (customLocationsList.length > 0) {
+      <div class="custom-section-divider">
+        <span>Custom</span>
+      </div>
+      <mat-chip-set class="chip-set-custom">
+        @for (loc of customLocationsList; track loc) {
+          <mat-chip [class.selected-chip]="isSelected(loc)" (click)="toggleLocation(loc)">
+            {{ loc }}
+            <mat-icon matChipRemove (click)="removeLocation(loc, $event)">cancel</mat-icon>
+          </mat-chip>
+        }
+      </mat-chip-set>
+    }
+
+    <div class="custom-location-row">
+      <mat-form-field appearance="outline">
+        <mat-label>Add custom location</mat-label>
+        <input matInput [(ngModel)]="customLocation"
+               (keyup.enter)="addCustomLocation()"
+               placeholder="e.g. Oxford">
+      </mat-form-field>
+      <button class="btn-add" mat-stroked-button (click)="addCustomLocation()" [disabled]="!customLocation.trim()">
+        <mat-icon>add</mat-icon> Add
+      </button>
+    </div>
+
+    @if (runFailed) {
+      <div class="error-msg">
+        <mat-icon>error_outline</mat-icon>
+        Scrape failed. Please try again.
+      </div>
+    }
+  </mat-card-content>
+
+  <mat-card-actions>
+    @if (isRunning) {
+      <div class="running-row">
+        <mat-spinner diameter="20"></mat-spinner>
+        <span>Scraping {{ selectedLocations.size }} location(s)… run #{{ currentRunId }}</span>
+        <button mat-stroked-button color="warn" (click)="cancelScrape()">
+          <mat-icon>stop_circle</mat-icon> Cancel
+        </button>
+      </div>
+    } @else {
+      <button mat-raised-button color="primary" class="btn-run"
+              [disabled]="selectedLocations.size === 0"
+              (click)="startScrape()">
+        <mat-icon>travel_explore</mat-icon>
+        Run Scrape
+        <span class="btn-count">{{ selectedLocations.size }}</span>
+      </button>
+    }
+  </mat-card-actions>
+</mat-card>

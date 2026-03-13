@@ -1,0 +1,32 @@
+# Source control
+.git/
+.gitignore
+
+# .NET build artefacts
+**/bin/
+**/obj/
+**/*.user
+**/.vs/
+**/TestResults/
+
+# Angular build artefacts
+src/InfoTrack.Web/node_modules/
+src/InfoTrack.Web/dist/
+src/InfoTrack.Web/.angular/
+
+# SQLite (runtime volume — not baked into image)
+*.db
+*.db-shm
+*.db-wal
+
+# Local config overrides
+**/appsettings.*.json
+!**/appsettings.Development.json
+docker-compose.override.yml
+
+# Editor / OS
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
+README.md

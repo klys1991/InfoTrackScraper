@@ -1,0 +1,33 @@
+<h2>Scrape History</h2>
+
+@if (runs.length === 0) {
+  <p class="empty-msg">No runs yet. <a routerLink="/search">Start a scrape</a>.</p>
+} @else {
+  <div class="history-list">
+    @for (run of runs; track run.id) {
+      <mat-card class="run-card">
+        <div class="run-row">
+          <div class="run-meta">
+            <span class="run-id">#{{ run.id }}</span>
+            <mat-chip [color]="statusColor(run.status)" highlighted>{{ run.status }}</mat-chip>
+            <span class="run-date">{{ run.startedAt | date:'medium' }}</span>
+            <span class="run-locs">{{ run.locations?.join(', ') ?? '' }}</span>
+          </div>
+          <div class="run-stats">
+            @if (run.resultCount) {
+              <span>{{ run.resultCount }} solicitors</span>
+            }
+            @if (run.newCount) {
+              <span class="badge-new">{{ run.newCount }} new</span>
+            }
+            @if (run.status === 'completed') {
+              <button mat-raised-button color="primary" (click)="viewResults(run.id)">
+                <mat-icon>open_in_new</mat-icon> View
+              </button>
+            }
+          </div>
+        </div>
+      </mat-card>
+    }
+  </div>
+}

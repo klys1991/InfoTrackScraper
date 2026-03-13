@@ -1,0 +1,32 @@
+version: '3.9'
+
+services:
+  api:
+    build:
+      context: ./src
+      dockerfile: InfoTrack.Api/Dockerfile
+    environment:
+      - ConnectionStrings__Default=Data Source=/data/infotrack.db
+      - AllowedOrigins=http://localhost:3000
+      - ASPNETCORE_ENVIRONMENT=Production
+    volumes:
+      - db-data:/data
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 20s
+
+  web:
+    build:
+      context: ./src/InfoTrack.Web
+      dockerfile: Dockerfile
+    ports:
+      - "3000:80"
+    depends_on:
+      api:
+        condition: service_healthy
+
+volumes:
+  db-data:
