@@ -21,11 +21,43 @@ In most teams F# is ruled out before the conversation starts - unfamiliarity, hi
 
 ## Quick Start
 
+### Option 1 — Docker (recommended)
+
+Requires Docker Desktop running with the Linux engine active.
+
 ```bash
 git clone https://github.com/klys1991/InfoTrackScraper.git
 cd InfoTrackScraper
-docker-compose up --build
+docker compose up --build
 # Open http://localhost:3000
+```
+
+All three services (nginx, API, Angular) start in a single command. The SQLite database is persisted in a named Docker volume (`db-data`) so data survives container restarts.
+
+### Option 2 — Local (no Docker)
+
+Requires .NET 10 SDK and Node.js 20+.
+
+```bash
+git clone https://github.com/klys1991/InfoTrackScraper.git
+cd InfoTrackScraper
+```
+
+**Terminal 1 — API:**
+```bash
+cd src/InfoTrack.Api
+dotnet run
+# API available at http://localhost:5000
+# Scalar API docs at http://localhost:5000/scalar
+```
+
+**Terminal 2 — Angular SPA:**
+```bash
+cd src/InfoTrack.Web
+npm install
+npm start
+# App available at http://localhost:4200
+# /api requests proxied to http://localhost:5000
 ```
 
 ---
@@ -247,23 +279,6 @@ InfoTrack/
 | GET | `/api/locations` | Default location list |
 
 Interactive docs: `http://localhost:5000/scalar` (local) or `http://localhost:3000/scalar` (Docker via nginx proxy).
-
----
-
-## Local development (without Docker)
-
-```bash
-# API
-cd src/InfoTrack.Api
-dotnet run
-# → http://localhost:5000
-
-# Angular (separate terminal)
-cd src/InfoTrack.Web
-npm install
-npm start   # proxies /api → http://localhost:5000
-# → http://localhost:4200
-```
 
 ---
 
